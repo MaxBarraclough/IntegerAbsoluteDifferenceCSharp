@@ -63,7 +63,7 @@ namespace IntegerAbsoluteDifferenceCSharp
                 // Modern code-generators are likely to generate *worse* code from this variation!
 
                 //UInt32 t = (i_u ^ j_u) & -(i_u < j_u); // C code, invalid in C#
-                UInt32 t = (i_u ^ j_u) & (System.Convert.ToUInt32(i_u < j_u) * UInt32.MaxValue);
+                UInt32 t = (i_u ^ j_u) & (0u - System.Convert.ToUInt32(i_u < j_u));
                 UInt32 min = j_u ^ t; // min(i_u, j_u)
                 UInt32 max = i_u ^ t; // max(i_u, j_u)
                 UInt32 ret = max - min;
