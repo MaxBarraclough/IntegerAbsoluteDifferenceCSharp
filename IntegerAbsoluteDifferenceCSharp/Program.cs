@@ -44,15 +44,17 @@ namespace IntegerAbsoluteDifferenceCSharp
             unchecked
             {
                 // Map the signed values across to the number-line of UInt32.
+                // Preserves the greater-than relation, such that an input of Int32.MinValue
+                // is mapped to 0, and an input of 0 is mapped to near the middle
+                // of the uint32_t number-line.
                 // Leverages the wrap-around behaviour of unsigned integer types.
-                // Preserves the greater-than relation, such that zero
-                // is mapped to near the middle of the UInt32 number-line.
-                // It would be more intuitive to use addition rather than subtraction and to
-                // set the offset to (UInt32)(-1 * Int32.MinValue). That multiplication
-                // overflows the signed integer type, which appears to still work, but is spooky.
-                const UInt32 offset = (UInt32)(Int32.MinValue); // 2's complement / C-style conversion
-                UInt32 i_u = (UInt32)i - offset;
-                UInt32 j_u = (UInt32)j - offset;
+
+                // It would be more intuitive to set the offset to (UInt32)(-1 * Int32.MinValue)
+                // but that multiplication overflows the signed integer type.
+                // We get the right effect subtracting from zero.
+                const UInt32 offset = 0u - (UInt32)(Int32.MinValue); // 2's complement / C-style conversion
+                UInt32 i_u = (UInt32)i + offset;
+                UInt32 j_u = (UInt32)j + offset;
 
 #if true
                 // Readable version:
