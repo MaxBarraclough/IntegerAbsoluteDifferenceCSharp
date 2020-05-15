@@ -94,48 +94,48 @@ namespace IntegerAbsoluteDifferenceCSharp
                         j = i_orig;
                     } // We may now safely assume i > j
 
-                    UInt32 greater_magn; // The magnitude, i.e. Math.Abs()
+                    UInt32 magn_of_greater; // The magnitude
                     bool greater_is_negative; // Zero is of course non-negative
-                    UInt32 lesser_magn;
+                    UInt32 magn_of_lesser;
                     bool lesser_is_negative;
 
                     if (i >= 0)
                     {
-                        greater_magn = (UInt32)i;
+                        magn_of_greater = (UInt32)i;
                         greater_is_negative = false;
                     }
                     else
                     { // Here it follows that 'lesser' is also negative, but we'll keep the flow simple
-                      // greater_magn = -i; // DANGEROUS, overflows if i == Int32.MinValue.
-                        greater_magn = (UInt32)0 - (UInt32)i;
+                      // magn_of_greater = -i; // DANGEROUS, overflows if i == Int32.MinValue.
+                        magn_of_greater = (UInt32)0 - (UInt32)i;
                         greater_is_negative = true;
                     }
 
                     if (j >= 0)
                     {
-                        lesser_magn = (UInt32)j;
+                        magn_of_lesser = (UInt32)j;
                         lesser_is_negative = false;
                     }
                     else
                     {
-                        // lesser_magn = -j; // DANGEROUS, overflows if i == Int32.MinValue.
-                        lesser_magn = (UInt32)((Int32)0 - (Int32)j);
+                        // magn_of_lesser = -j; // DANGEROUS, overflows if i == Int32.MinValue.
+                        magn_of_lesser = (UInt32)((Int32)0 - (Int32)j);
                         lesser_is_negative = true;
                     }
 
                     // Finally compute the difference between lesser and greater
                     if (!greater_is_negative && !lesser_is_negative)
                     {
-                        ret = greater_magn - lesser_magn;
+                        ret = magn_of_greater - magn_of_lesser;
                     }
                     else if (greater_is_negative && lesser_is_negative)
                     {
-                        ret = lesser_magn - greater_magn;
+                        ret = magn_of_lesser - magn_of_greater;
                     }
                     else
                     { // One negative, one non-negative. Difference between them is sum of the magnitudes.
                       // This looks like it may overflow, but it never will.
-                        ret = lesser_magn + greater_magn;
+                        ret = magn_of_lesser + magn_of_greater;
                     }
                 }
                 return ret;
