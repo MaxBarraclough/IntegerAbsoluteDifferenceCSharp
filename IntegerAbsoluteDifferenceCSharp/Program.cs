@@ -134,7 +134,7 @@ namespace IntegerAbsoluteDifferenceCSharp
                     }
                     else
                     { // One negative, one non-negative. Difference between them is sum of the magnitudes.
-                      // This looks like it may overflow, but it never will.
+                      // This will never overflow.
                         ret = magn_of_lesser + magn_of_greater;
                     }
                 }
