@@ -62,7 +62,7 @@ namespace IntegerAbsoluteDifferenceCSharp
 #else
                 // Unreadable branch-free version adapted from
                 // https://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMax
-                // Modern code-generators are likely to generate *worse* code from this variation!
+                // Modern code-generators are likely to generate *worse* code from this variation.
 
                 //UInt32 t = (i_u ^ j_u) & -(i_u < j_u); // C code, invalid in C#
                 UInt32 t = (i_u ^ j_u) & (0u - System.Convert.ToUInt32(i_u < j_u));
