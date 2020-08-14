@@ -16,12 +16,14 @@ namespace IntegerAbsoluteDifferenceCSharp
         }
 
 
-        // NO NO NO NO NO. BAD WRONG DANGEROUS TERRIBLE. Overflows cause undefined behaviour.
+        // NO NO NO NO NO. BAD WRONG DANGEROUS TERRIBLE. May throw.
+        // May also return incorrect value due to overflow.
         static UInt32 INCORRECT_difference_int32(Int32 i, Int32 j)
         {
             unchecked
             {
-                return (UInt32)Math.Abs(i - j); // The subtraction may overflow.
+                return (UInt32)Math.Abs(i - j);
+                // If the subtraction overflows/underflows we produce an incorrect value.
                 // The call to abs() is also unsafe: Math.Abs(Int32.MinValue) will throw.
             }
         }
